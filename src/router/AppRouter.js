@@ -10,15 +10,21 @@ const AppRouter = () => {
 		color: colors.fg,
 		minHeight: "100vh",
 	};
+	const routeWrapper = {
+		paddingLeft: "40px",
+		paddingTop: "10vh",
+	};
 	return (
 		<div style={appWrapper}>
 			<BrowserRouter>
 				<Menu />
-				<Routes>
-					{AllRoutes.map((route) => {
-						return <Route {...route} />;
-					})}
-				</Routes>
+				<div style={routeWrapper}>
+					<Routes>
+						{AllRoutes.map((route) => {
+							return <Route {...route} />;
+						})}
+					</Routes>
+				</div>
 			</BrowserRouter>
 		</div>
 	);

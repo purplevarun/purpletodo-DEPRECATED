@@ -7,15 +7,15 @@ import Archived from "./../pages/Archived/Archived";
 const AllRoutes = [
 	{
 		path: "/",
-		element: <Home />,
-		exact: true,
-		key: "Home",
-	},
-	{
-		path: "/login",
 		element: <Login />,
 		exact: true,
 		key: "Login",
+	},
+	{
+		path: "/home",
+		element: <Home />,
+		exact: true,
+		key: "Home",
 	},
 	{
 		path: "/register",
