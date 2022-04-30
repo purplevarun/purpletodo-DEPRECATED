@@ -9,26 +9,31 @@ const AllRoutes = [
 		path: "/",
 		element: <Home />,
 		exact: true,
+		key: "Home",
 	},
 	{
 		path: "/login",
 		element: <Login />,
 		exact: true,
+		key: "Login",
 	},
 	{
 		path: "/register",
 		element: <Register />,
 		exact: true,
+		key: "Register",
 	},
 	{
 		path: "/archived",
 		element: <Archived />,
 		exact: true,
+		key: "Archived",
 	},
 	{
 		path: "*",
 		element: <Navigate to="/" replace />,
-		exact: true,
+		exact: false,
+		key: "Redirect",
 	},
 ];
 export default AllRoutes;

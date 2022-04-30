@@ -1,7 +1,8 @@
-import React from "react";
-import Context from "./Context";
+import React, { createContext } from "react";
+import Data from "./Data";
+export const Context = createContext();
 const ContextProvider = ({ children }) => {
-	const data = { name: "Varun" };
+	const data = Data();
 	return <Context.Provider value={data}>{children}</Context.Provider>;
 };
 

@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
-import Context from "../../contexts/Context";
+import React from "react";
 
 const Home = () => {
-	const { name } = useContext(Context);
-	return <div>Home {name}</div>;
+	return <div>Hom</div>;
 };
 
 export default Home;
