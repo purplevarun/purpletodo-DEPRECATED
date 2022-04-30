@@ -1,9 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Context from "./../../contexts/Context";
 import Button from "../../components/Button/Button";
 const Login = () => {
 	const { colors } = useContext(Context);
 	const [text, setText] = useState("");
+	const [showHelpText, setShowHelpText] = useState(false);
+	useEffect(() => {
+		setTimeout(() => {
+			setShowHelpText(true);
+		}, 3000);
+	}, []);
 	const loginPage = {
 		style: {
 			height: "100%",
@@ -52,7 +58,7 @@ const Login = () => {
 				{text.length >= 3 ? (
 					<Button text={"submit"} variant={"black"} />
 				) : (
-					<p>username should be atleast 3 letters</p>
+					showHelpText && <p>username should be atleast 3 letters</p>
 				)}
 			</div>
 		</div>
