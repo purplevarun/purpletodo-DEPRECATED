@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AllRoutes from "./RouterConfig";
 import Menu from "./../components/Menu/Menu";
-import { Context } from "../contexts/ContextProvider";
+import Context from "../contexts/Context";
 const AppRouter = () => {
 	const { colors } = useContext(Context);
 	const appWrapper = {
