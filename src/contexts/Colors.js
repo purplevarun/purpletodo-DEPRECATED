@@ -6,5 +6,6 @@ const Colors = {
 	red: "#ff5555",
 	grey: "#44475a",
 	orange: "#ffb86c",
+	comment: "#6272a4",
 };
 export default Colors;

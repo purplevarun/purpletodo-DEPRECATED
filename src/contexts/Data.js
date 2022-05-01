@@ -10,6 +10,13 @@ const Data = () => {
 		}
 	};
 	const [currentUser, setCurrentUser] = useState(getLoggedInUser());
+	const [openMobileMenu, setOpenMobileMenu] = useState(false);
+	const toggleMobileMenu = () => {
+		setOpenMobileMenu(!openMobileMenu);
+	};
+	const closeMobileMenu = () => {
+		setOpenMobileMenu(false);
+	};
 	const saveCurrentUser = (user) => {
 		setCurrentUser(user);
 		localStorage.setItem("loggedInUser", JSON.stringify(user));
@@ -18,6 +25,9 @@ const Data = () => {
 		colors,
 		currentUser,
 		saveCurrentUser,
+		openMobileMenu,
+		toggleMobileMenu,
+		closeMobileMenu,
 	};
 };
 

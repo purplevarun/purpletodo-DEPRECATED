@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Context from "./../../contexts/Context";
 import Button from "../../components/Button/Button";
 import axios from "axios";
@@ -10,13 +11,14 @@ const Login = () => {
 	const [password, setPassword] = useState("");
 	const [showPasswordBox, setShowPasswordBox] = useState(false);
 	const [showHelpText, setShowHelpText] = useState(false);
+	const [passwordEye, setPasswordEye] = useState(false);
+
 	useEffect(() => {
 		setTimeout(() => {
 			setShowHelpText(true);
 		}, 3000);
 	}, []);
 	useEffect(() => {
-		console.log(currentUser);
 		if (currentUser) {
 			navigate("/home");
 		}
@@ -30,9 +32,11 @@ const Login = () => {
 			alignItems: "center",
 			flexDirection: "column",
 			gap: "20px",
+			userSelect: "none",
 		},
 	};
 	const inputBox = {
+		autoFocus: true,
 		type: "text",
 		placeholder: "username",
 		style: {
@@ -51,7 +55,8 @@ const Login = () => {
 		onChange: (e) => setUsername(e.target.value),
 	};
 	const passwordBox = {
-		type: "text",
+		autoFocus: true,
+		type: passwordEye ? "text" : "password",
 		placeholder: "password",
 		style: {
 			minWidth: "300px",
@@ -85,7 +90,6 @@ const Login = () => {
 	const handleClick = async () => {
 		if (showPasswordBox) {
 			const userValidated = await getUserValidationData();
-			console.log(userValidated);
 			if (userValidated.status) {
 				saveCurrentUser(userValidated.docs);
 				navigate("/home");
@@ -110,6 +114,15 @@ const Login = () => {
 		window.addEventListener("keydown", handleKeyDown);
 		return () => window.removeEventListener("keydown", handleKeyDown);
 	});
+	const eyeIcon = {
+		size: 30,
+		style: {
+			position: "absolute",
+			marginLeft: "280px",
+			cursor: "pointer",
+		},
+		onClick: () => setPasswordEye(!passwordEye),
+	};
 	return (
 		<div {...loginPage}>
 			<div
@@ -123,7 +136,16 @@ const Login = () => {
 			>
 				<h1 style={{ color: colors.pink }}>login</h1>
 				<input {...inputBox} />
-				{showPasswordBox && <input {...passwordBox} />}
+				{showPasswordBox && (
+					<div style={{ display: "flex", alignItems: "center" }}>
+						<input {...passwordBox} />
+						{passwordEye ? (
+							<AiFillEye {...eyeIcon} />
+						) : (
+							<AiFillEyeInvisible {...eyeIcon} />
+						)}
+					</div>
+				)}
 			</div>
 			<div style={{ height: "10vh" }}>
 				{username.length >= 3 ? (

@@ -77,8 +77,8 @@ const MenuDesktop = () => {
 		},
 		onClick: () => {
 			if (currentUser) {
-				localStorage.removeItem("loggedInUser");
 				saveCurrentUser(null);
+				localStorage.removeItem("loggedInUser");
 				navigate("/");
 			}
 		},
