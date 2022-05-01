@@ -29,7 +29,7 @@ const Data = () => {
 		localStorage.removeItem("loggedInUser");
 		signOut();
 	};
-
+	const [newTodo, setNewTodo] = useState(false);
 	return {
 		// colors
 		colors,
@@ -41,6 +41,9 @@ const Data = () => {
 		openMobileMenu,
 		toggleMobileMenu,
 		closeMobileMenu,
+		// new todo
+		newTodo,
+		setNewTodo,
 	};
 };
 
