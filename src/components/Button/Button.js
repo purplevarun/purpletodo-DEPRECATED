@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import Context from "../../contexts/Context";
 
-const Button = ({ text, variant }) => {
+const Button = ({ text, variant, onClick }) => {
 	const { colors } = useContext(Context);
 	const map = {
 		black: {
@@ -11,6 +11,7 @@ const Button = ({ text, variant }) => {
 	};
 	const btnRef = useRef();
 	const btn = {
+		onClick: onClick,
 		ref: btnRef,
 		style: {
 			background: map[variant].bg,
@@ -37,6 +38,7 @@ const Button = ({ text, variant }) => {
 			btnRef.current.style.borderColor = colors.fg;
 			btnRef.current.style.fontSize = "20px";
 		},
+		type: "submit",
 	};
 	return <button {...btn}>{text}</button>;
 };
