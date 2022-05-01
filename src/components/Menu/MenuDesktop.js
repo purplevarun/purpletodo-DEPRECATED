@@ -4,7 +4,7 @@ import Context from "../../contexts/Context";
 import UserIcon from "./UserIcon";
 const MenuDesktop = () => {
 	const navigate = useNavigate();
-	const { currentUser, colors, saveCurrentUser } = useContext(Context);
+	const { currentUser, colors, logoutCurrentUser } = useContext(Context);
 	const menuItem = {
 		cursor: "pointer",
 		transition: "0.5s",
@@ -77,8 +77,7 @@ const MenuDesktop = () => {
 		},
 		onClick: () => {
 			if (currentUser) {
-				saveCurrentUser(null);
-				localStorage.removeItem("loggedInUser");
+				logoutCurrentUser();
 				navigate("/");
 			}
 		},
@@ -93,6 +92,7 @@ const MenuDesktop = () => {
 				height: "8vh",
 				alignItems: "center",
 				justifyContent: "space-between",
+				paddingTop: "5px",
 			}}
 		>
 			<div

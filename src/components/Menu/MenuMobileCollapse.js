@@ -46,7 +46,6 @@ const MenuMobileCollapse = () => {
 				position: "absolute",
 				userSelect: "none",
 				display: "flex",
-				width: "100%",
 				height: "8vh",
 				alignItems: "center",
 				justifyContent: "space-between",

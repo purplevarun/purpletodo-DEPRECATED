@@ -1,5 +1,6 @@
+import { isMobile } from "ismobilehook";
 import React, { useContext } from "react";
-import { FaUserSlash, FaUser } from "react-icons/fa";
+import { FaUserSlash } from "react-icons/fa";
 import Context from "../../contexts/Context";
 const UserIcon = () => {
 	const { currentUser } = useContext(Context);
@@ -22,8 +23,17 @@ const UserIcon = () => {
 						gap: "10px",
 					}}
 				>
-					<FaUser {...iconProps} />
-					<p style={{ fontSize: "20px" }}>{currentUser.username}</p>
+					<div
+						style={{
+							overflow: "hidden",
+							borderRadius: "99px",
+						}}
+					>
+						<img src={currentUser.image} alt="" width={50} />
+					</div>
+					{!isMobile() && (
+						<p style={{ fontSize: "20px" }}>{currentUser.email}</p>
+					)}
 				</div>
 			) : (
 				<div
@@ -34,7 +44,6 @@ const UserIcon = () => {
 					}}
 				>
 					<FaUserSlash {...iconProps} />
-					<p style={{ fontSize: "20px" }}>Guest</p>
 				</div>
 			)}
 		</div>

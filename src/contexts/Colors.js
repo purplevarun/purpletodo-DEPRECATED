@@ -7,5 +7,6 @@ const Colors = {
 	grey: "#44475a",
 	orange: "#ffb86c",
 	comment: "#6272a4",
+	gold: "gold",
 };
 export default Colors;
