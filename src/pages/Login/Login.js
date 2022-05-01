@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
 	const navigate = useNavigate();
-	const { colors } = useContext(Context);
+	const { colors, saveCurrentUser, currentUser } = useContext(Context);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [showPasswordBox, setShowPasswordBox] = useState(false);
@@ -15,6 +15,12 @@ const Login = () => {
 			setShowHelpText(true);
 		}, 3000);
 	}, []);
+	useEffect(() => {
+		console.log(currentUser);
+		if (currentUser) {
+			navigate("/home");
+		}
+	}, []);
 	const loginPage = {
 		style: {
 			height: "100%",
@@ -22,7 +28,6 @@ const Login = () => {
 			display: "flex",
 			justifyContent: showPasswordBox ? "space-evenly" : "center",
 			alignItems: "center",
-			marginRight: "40px",
 			flexDirection: "column",
 			gap: "20px",
 		},
@@ -81,6 +86,11 @@ const Login = () => {
 		if (showPasswordBox) {
 			const userValidated = await getUserValidationData();
 			console.log(userValidated);
+			if (userValidated.status) {
+				saveCurrentUser(userValidated.docs);
+				navigate("/home");
+			} else {
+			}
 		} else {
 			const userExists = await getUserExistsData();
 			if (userExists.status) {
@@ -90,6 +100,7 @@ const Login = () => {
 			}
 		}
 	};
+	useEffect(() => {}, [currentUser]);
 	const handleKeyDown = (e) => {
 		if (e.key === "Enter" && username.length >= 3) {
 			handleClick();

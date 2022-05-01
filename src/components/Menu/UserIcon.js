@@ -23,7 +23,7 @@ const UserIcon = () => {
 					}}
 				>
 					<FaUser {...iconProps} />
-					<p>{currentUser.username}</p>
+					<p style={{ fontSize: "20px" }}>{currentUser.username}</p>
 				</div>
 			) : (
 				<div

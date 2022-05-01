@@ -11,7 +11,6 @@ const AppRouter = () => {
 		minHeight: "100vh",
 	};
 	const routeWrapper = {
-		paddingLeft: "40px",
 		paddingTop: "10vh",
 	};
 	return (

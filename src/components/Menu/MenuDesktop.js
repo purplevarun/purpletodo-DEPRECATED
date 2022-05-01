@@ -4,7 +4,7 @@ import Context from "../../contexts/Context";
 import UserIcon from "./UserIcon";
 const MenuDesktop = () => {
 	const navigate = useNavigate();
-	const { currentUser, colors } = useContext(Context);
+	const { currentUser, colors, saveCurrentUser } = useContext(Context);
 	const menuItem = {
 		cursor: "pointer",
 		transition: "0.5s",
@@ -57,7 +57,32 @@ const MenuDesktop = () => {
 			}
 		},
 	};
-
+	const logoutButtonRef = useRef();
+	const logoutButton = {
+		ref: logoutButtonRef,
+		style: menuItem,
+		onMouseOver: () => {
+			if (currentUser) {
+				logoutButtonRef.current.style.fontSize = "1.6em";
+				logoutButtonRef.current.style.color = colors.pink;
+			}
+		},
+		onMouseLeave: () => {
+			if (currentUser) {
+				logoutButtonRef.current.style.fontSize = "1.5em";
+				logoutButtonRef.current.style.color = currentUser
+					? colors.fg
+					: colors.grey;
+			}
+		},
+		onClick: () => {
+			if (currentUser) {
+				localStorage.removeItem("loggedInUser");
+				saveCurrentUser(null);
+				navigate("/");
+			}
+		},
+	};
 	return (
 		<div
 			style={{
@@ -80,7 +105,7 @@ const MenuDesktop = () => {
 			>
 				<h2 {...homeButton}>Home</h2>
 				<h2 {...archivedButton}>Archived</h2>
-				{currentUser && <h2>Logout</h2>}
+				{currentUser && <h2 {...logoutButton}>Logout</h2>}
 			</div>
 			<UserIcon />
 		</div>
