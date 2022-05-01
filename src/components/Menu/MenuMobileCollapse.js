@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import UserIcon from "./UserIcon";
+import React, { useContext } from "react";
 import { BsFillGridFill } from "react-icons/bs";
 import Context from "../../contexts/Context";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +9,7 @@ const MenuMobileCollapse = () => {
 		openMobileMenu,
 		toggleMobileMenu,
 		closeMobileMenu,
-		saveCurrentUser,
+		logoutCurrentUser,
 		currentUser,
 	} = useContext(Context);
 	const menuIcon = {
@@ -22,24 +21,27 @@ const MenuMobileCollapse = () => {
 	};
 	const homeBtn = {
 		onClick: () => {
-			if (currentUser) navigate("/home");
+			if (currentUser) {
+				navigate("/home");
+				closeMobileMenu();
+			}
 		},
 	};
 	const archivedBtn = {
 		onClick: () => {
-			if (currentUser) navigate("/archived");
+			if (currentUser) {
+				navigate("/archived");
+				closeMobileMenu();
+			}
 		},
 	};
 	const logoutBtn = {
 		onClick: () => {
-			saveCurrentUser(null);
-			localStorage.removeItem("loggedInUser");
+			logoutCurrentUser();
 			navigate("/");
+			closeMobileMenu();
 		},
 	};
-	useEffect(() => {
-		setTimeout(closeMobileMenu, 5000);
-	});
 	return (
 		<div
 			style={{

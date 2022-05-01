@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import UserIcon from "./UserIcon";
 import { BsFillGridFill } from "react-icons/bs";
 import Context from "../../contexts/Context";
 import MenuMobileCollapse from "./MenuMobileCollapse";
 const MenuMobile = () => {
-	const { colors, openMobileMenu, toggleMobileMenu } = useContext(Context);
+	const { openMobileMenu, toggleMobileMenu } = useContext(Context);
 	const menuIcon = {
 		size: 40,
 		onClick: toggleMobileMenu,

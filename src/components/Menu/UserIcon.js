@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { FaUserSlash } from "react-icons/fa";
 import Context from "../../contexts/Context";
 const UserIcon = () => {
-	const { currentUser } = useContext(Context);
+	const { currentUser, colors } = useContext(Context);
 	const iconProps = {
 		size: 40,
 	};
@@ -26,10 +26,11 @@ const UserIcon = () => {
 					<div
 						style={{
 							overflow: "hidden",
-							borderRadius: "99px",
+							borderRadius: "10px",
+							border: `3px solid ${colors.pink}`,
 						}}
 					>
-						<img src={currentUser.image} alt="" width={50} />
+						<img src={currentUser.image} alt="" width={40} />
 					</div>
 					{!isMobile() && (
 						<p style={{ fontSize: "20px" }}>{currentUser.email}</p>

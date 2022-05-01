@@ -9,8 +9,7 @@ const Home = () => {
 		if (!currentUser) {
 			navigate("/");
 		}
-	}, [currentUser]);
-	useEffect(() => {}, [currentUser]);
+	});
 	return <div>Home page</div>;
 };
 
