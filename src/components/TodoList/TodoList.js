@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Context from "../../contexts/Context";
 import TodoData from "./TodoData";
-
+import loading from "./../../assets/loading.svg";
 const TodoList = ({ onlyArchived }) => {
 	const { axiosConfig, currentUser } = useContext(Context);
 	const [todos, setTodos] = useState(null);
@@ -31,7 +31,11 @@ const TodoList = ({ onlyArchived }) => {
 				userSelect: "none",
 			}}
 		>
-			{todos ? <TodoData {...todoProps} /> : <p>loading</p>}
+			{todos ? (
+				<TodoData {...todoProps} />
+			) : (
+				<img src={loading} alt="loading" />
+			)}
 		</div>
 	);
 };
