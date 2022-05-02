@@ -4,10 +4,11 @@ import React, { useContext, useState } from "react";
 import Context from "./../../contexts/Context";
 const InputBox = ({
 	existingText,
-	hideDiscardBtn,
 	customOnClick,
 	customOnClickFunction,
 	setNewContent,
+	deleteTodo,
+	completeTodo,
 }) => {
 	const [text, setText] = useState(existingText ? existingText : "");
 	const { axiosConfig, currentUser, colors, setNewTodo } =
@@ -109,7 +110,30 @@ const InputBox = ({
 			justifyContent: "space-evenly",
 			alignItems: "center",
 			paddingTop: "20px",
+			gap: "10px",
 		},
+	};
+	const [archiveBtnHover, setArchiveBtnHover] = useState(false);
+	const [deleteBtnHover, setDeleteBtnHover] = useState(false);
+	const archiveBtn = {
+		style: {
+			...btnStyle,
+			borderColor: archiveBtnHover ? colors.pink : colors.orange,
+			backgroundColor: archiveBtnHover ? colors.orange : colors.bg,
+		},
+		onMouseOver: () => setArchiveBtnHover(true),
+		onMouseLeave: () => setArchiveBtnHover(false),
+		onClick: completeTodo,
+	};
+	const deleteBtn = {
+		style: {
+			...btnStyle,
+			borderColor: deleteBtnHover ? colors.pink : colors.red,
+			backgroundColor: deleteBtnHover ? colors.red : colors.bg,
+		},
+		onMouseOver: () => setDeleteBtnHover(true),
+		onMouseLeave: () => setDeleteBtnHover(false),
+		onClick: deleteTodo,
 	};
 	return (
 		<div
@@ -123,7 +147,14 @@ const InputBox = ({
 			<textarea {...textArea} />
 			<div {...btns}>
 				<button {...saveBtn}>Save</button>
-				{!hideDiscardBtn && <button {...discardBtn}>Discard</button>}
+				{customOnClick ? (
+					<>
+						<button {...archiveBtn}>Archive</button>
+						<button {...deleteBtn}>Delete</button>
+					</>
+				) : (
+					<button {...discardBtn}>Discard</button>
+				)}
 			</div>
 		</div>
 	);

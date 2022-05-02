@@ -1,7 +1,7 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 
-const TodoData = ({ todos }) => {
+const TodoData = ({ todos, onlyArchived }) => {
 	return (
 		<div
 			style={{
@@ -12,8 +12,13 @@ const TodoData = ({ todos }) => {
 			}}
 		>
 			{todos.map((todo) => {
-				if (!todo.completed)
-					return <TodoItem {...todo} key={todo._id} />;
+				if (onlyArchived) {
+					if (todo.completed)
+						return <TodoItem {...todo} key={todo._id} />;
+				} else {
+					if (!todo.completed)
+						return <TodoItem {...todo} key={todo._id} />;
+				}
 			})}
 		</div>
 	);

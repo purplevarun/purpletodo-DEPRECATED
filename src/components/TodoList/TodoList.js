@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Context from "../../contexts/Context";
 import TodoData from "./TodoData";
 
-const TodoList = () => {
+const TodoList = ({ onlyArchived }) => {
 	const { axiosConfig, currentUser } = useContext(Context);
 	const [todos, setTodos] = useState(null);
 	const getTodos = async () => {
@@ -16,7 +16,7 @@ const TodoList = () => {
 			console.log(response.data);
 		}
 	};
-	const todoProps = { todos };
+	const todoProps = { todos, onlyArchived };
 	useEffect(() => {
 		getTodos();
 	});

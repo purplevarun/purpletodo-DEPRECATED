@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import Context from "../../contexts/Context";
 import InputBox from "../InputBox/InputBox";
 
-const TodoItem = ({ content, date, _id }) => {
+const TodoItem = ({ content, date, _id, completed }) => {
 	const { colors, axiosConfig } = useContext(Context);
 	const newDate = new Date(date).toLocaleString();
 	const [hover, setHover] = useState(false);
@@ -44,26 +44,49 @@ const TodoItem = ({ content, date, _id }) => {
 		onMouseLeave: () => setHover(false),
 		onClick: handleClick,
 	};
-	const [newContent, setNewContent] = useState(false);
+	const [newContent, setNewContent] = useState(content);
 	const editTodo = async () => {
-		const url = `${process.env.REACT_APP_API_URL}/edit-todo`;
+		if (newContent.length > 0) {
+			const url = `${process.env.REACT_APP_API_URL}/edit-todo`;
+			const data = {
+				content: newContent,
+				date: new Date().toString(),
+				todoId: _id,
+			};
+			axios.post(url, data, axiosConfig);
+			setEditMode(false);
+			setHover(false);
+		} else {
+			alert("Todo Note is Empty!");
+		}
+	};
+	const deleteTodo = async () => {
+		const url = `${process.env.REACT_APP_API_URL}/delete-todo`;
 		const data = {
-			content: newContent,
-			date: new Date().toString(),
 			todoId: _id,
 		};
 		axios.post(url, data, axiosConfig);
-		setEditMode(false);
-		setHover(false);
+	};
+	const completeTodo = async () => {
+		if (completed) {
+			alert("This Note is already Archived");
+		} else {
+			const url = `${process.env.REACT_APP_API_URL}/complete-todo`;
+			const data = {
+				todoId: _id,
+			};
+			axios.post(url, data, axiosConfig);
+		}
 	};
 	const inputBoxProps = {
 		existingText: content,
-		hideDiscardBtn: true,
 		customOnClick: true,
 		customOnClickFunction: async () => {
 			await editTodo();
 		},
 		setNewContent,
+		deleteTodo,
+		completeTodo,
 	};
 	return (
 		<div {...wrapper}>

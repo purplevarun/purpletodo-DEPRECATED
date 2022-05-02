@@ -31,7 +31,7 @@ const Home = () => {
 			{/* input box */}
 			{newTodo && <InputBox />}
 			{/* todo list */}
-			<TodoList />
+			<TodoList onlyArchived={false} />
 			{/* add btn */}
 			<div {...addBtnWrapper}>
 				<AddButton />
