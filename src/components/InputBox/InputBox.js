@@ -6,13 +6,28 @@ const InputBox = () => {
 	const [text, setText] = useState("");
 	const { axiosConfig, currentUser, colors, setNewTodo } =
 		useContext(Context);
+
+	const handleChange = (e) => {
+		setText(e.target.value);
+	};
+	const getHeight = () => {
+		let length = 0;
+		let wordLength = 0;
+		for (let ch of text) {
+			if (ch === " ") length++;
+			else wordLength++;
+		}
+		const finalLength =
+			length + isMobile()
+				? Math.round(wordLength / 2)
+				: Math.round(wordLength / 10);
+		return `${finalLength}vh`;
+	};
 	const textArea = {
 		style: {
 			width: "100%",
 			minHeight: "5vh",
-			height: isMobile()
-				? `${text.length / 7}vh`
-				: `${text.length / 20}vh`,
+			height: getHeight(),
 			borderRadius: "10px",
 			padding: "10px",
 			outline: "none",
@@ -23,9 +38,10 @@ const InputBox = () => {
 			resize: "none",
 			background: colors.bg,
 			color: colors.fg,
+			whiteSpace: "pre-wrap",
 		},
 		value: text,
-		onChange: (e) => setText(e.target.value),
+		onChange: handleChange,
 		autoFocus: true,
 	};
 	const [saveBtnHover, setSaveBtnHover] = useState(false);
@@ -80,6 +96,14 @@ const InputBox = () => {
 		onMouseLeave: () => setDiscardBtnHover(false),
 		onClick: () => setNewTodo(false),
 	};
+	const btns = {
+		style: {
+			display: "flex",
+			justifyContent: "space-evenly",
+			alignItems: "center",
+			paddingTop: "20px",
+		},
+	};
 	return (
 		<div
 			style={{
@@ -90,14 +114,8 @@ const InputBox = () => {
 			}}
 		>
 			<textarea {...textArea} />
-			<div
-				style={{
-					display: "flex",
-					justifyContent: "space-evenly",
-					alignItems: "center",
-					paddingTop: "20px",
-				}}
-			>
+			{text}
+			<div {...btns}>
 				<button {...saveBtn}>Save</button>
 				<button {...discardBtn}>Discard</button>
 			</div>

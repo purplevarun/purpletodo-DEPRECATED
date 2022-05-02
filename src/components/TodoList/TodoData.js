@@ -8,11 +8,12 @@ const TodoData = ({ todos }) => {
 				width: "100%",
 				gap: "20px",
 				display: "flex",
-				flexDirection: "column",
+				flexDirection: "column-reverse",
 			}}
 		>
 			{todos.map((todo) => {
-				return <TodoItem {...todo} />;
+				if (!todo.completed)
+					return <TodoItem {...todo} key={todo._id} />;
 			})}
 		</div>
 	);

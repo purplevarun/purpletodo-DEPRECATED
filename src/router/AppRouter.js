@@ -9,6 +9,7 @@ const AppRouter = () => {
 		background: colors.bg,
 		color: colors.fg,
 		minHeight: "100vh",
+		overflow: "hidden",
 	};
 	const routeWrapper = {
 		paddingTop: "10vh",

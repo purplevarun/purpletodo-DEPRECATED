@@ -28,6 +28,7 @@ const TodoList = () => {
 				alignItems: "center",
 				minHeight: "80vh",
 				marginRight: "30px",
+				userSelect: "none",
 			}}
 		>
 			{todos ? <TodoData {...todoProps} /> : <p>loading</p>}
