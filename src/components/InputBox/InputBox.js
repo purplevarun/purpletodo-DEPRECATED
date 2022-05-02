@@ -2,26 +2,29 @@ import axios from "axios";
 import { isMobile } from "ismobilehook";
 import React, { useContext, useState } from "react";
 import Context from "./../../contexts/Context";
-const InputBox = () => {
-	const [text, setText] = useState("");
+const InputBox = ({
+	existingText,
+	hideDiscardBtn,
+	customOnClick,
+	customOnClickFunction,
+	setNewContent,
+}) => {
+	const [text, setText] = useState(existingText ? existingText : "");
 	const { axiosConfig, currentUser, colors, setNewTodo } =
 		useContext(Context);
 
 	const handleChange = (e) => {
 		setText(e.target.value);
+		if (customOnClick) {
+			setNewContent(e.target.value);
+		}
 	};
 	const getHeight = () => {
-		let length = 0;
-		let wordLength = 0;
+		let length = 5;
 		for (let ch of text) {
-			if (ch === " ") length++;
-			else wordLength++;
+			if (ch === "\n") length += 2;
 		}
-		const finalLength =
-			length + isMobile()
-				? Math.round(wordLength / 2)
-				: Math.round(wordLength / 10);
-		return `${finalLength}vh`;
+		return `${length}vh`;
 	};
 	const textArea = {
 		style: {
@@ -83,7 +86,11 @@ const InputBox = () => {
 		onMouseOver: () => setSaveBtnHover(true),
 		onMouseLeave: () => setSaveBtnHover(false),
 		onClick: async () => {
-			await saveNewTodo();
+			if (customOnClick) {
+				customOnClickFunction();
+			} else {
+				await saveNewTodo();
+			}
 		},
 	};
 	const discardBtn = {
@@ -114,10 +121,9 @@ const InputBox = () => {
 			}}
 		>
 			<textarea {...textArea} />
-			{text}
 			<div {...btns}>
 				<button {...saveBtn}>Save</button>
-				<button {...discardBtn}>Discard</button>
+				{!hideDiscardBtn && <button {...discardBtn}>Discard</button>}
 			</div>
 		</div>
 	);
