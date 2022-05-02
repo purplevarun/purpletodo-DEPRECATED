@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AddButton from "../../components/AddButton/AddButton";
 import Context from "../../contexts/Context";
 import InputBox from "./../../components/InputBox/InputBox";
+import TodoList from "./../../components/TodoList/TodoList";
 const Home = () => {
 	const { currentUser, newTodo, setNewTodo } = useContext(Context);
 	const navigate = useNavigate();
@@ -27,10 +28,15 @@ const Home = () => {
 	};
 	return (
 		<div {...homepage}>
+			{/* input box */}
 			{newTodo && <InputBox />}
+			{/* todo list */}
+			<TodoList />
+			{/* add btn */}
 			<div {...addBtnWrapper}>
 				<AddButton />
 			</div>
+			{/*  */}
 		</div>
 	);
 };

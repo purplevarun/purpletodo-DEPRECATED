@@ -30,6 +30,9 @@ const Data = () => {
 		signOut();
 	};
 	const [newTodo, setNewTodo] = useState(false);
+	const axiosConfig = {
+		headers: { apikey: process.env.REACT_APP_APIKEY },
+	};
 	return {
 		// colors
 		colors,
@@ -44,6 +47,8 @@ const Data = () => {
 		// new todo
 		newTodo,
 		setNewTodo,
+		//
+		axiosConfig,
 	};
 };
 

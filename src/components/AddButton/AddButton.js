@@ -3,15 +3,18 @@ import { MdAddCircle } from "react-icons/md";
 import Context from "../../contexts/Context";
 const AddButton = () => {
 	const { colors, setNewTodo, newTodo } = useContext(Context);
-	const [iconColor, setIconColor] = useState(colors.fg);
+	const [onHover, setOnHover] = useState(false);
 	const iconProps = {
 		size: 50,
 		style: {
 			cursor: "pointer",
-			color: iconColor,
+			color: onHover ? colors.gold : colors.fg,
+			transition: "0.5s",
+			background: onHover ? colors.pink : "none",
+			borderRadius: "50px",
 		},
-		onMouseOver: () => setIconColor(colors.gold),
-		onMouseLeave: () => setIconColor(colors.fg),
+		onMouseOver: () => setOnHover(true),
+		onMouseLeave: () => setOnHover(false),
 		onClick: () => {
 			if (!newTodo) {
 				setNewTodo(true);
