@@ -11,6 +11,7 @@ const TodoItem = ({ content, date, _id, completed }) => {
 	const contentProps = {
 		style: {
 			display: "flex",
+			flexDirection: "column",
 			alignSelf: "flex-start",
 			paddingLeft: "20px",
 			color: hover ? colors.gold : colors.pink,
