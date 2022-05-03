@@ -55,7 +55,7 @@ const TodoItem = ({ content, date, _id, completed }) => {
 				date: new Date().toString(),
 				todoId: _id,
 			};
-			axios.post(url, data, axiosConfig);
+			await axios.post(url, data, axiosConfig);
 			setEditMode(false);
 			setHover(false);
 			setShowLoader(false);
@@ -77,7 +77,6 @@ const TodoItem = ({ content, date, _id, completed }) => {
 			alert("This Note is already Archived");
 		} else {
 			setShowLoader(true);
-
 			const url = `${process.env.REACT_APP_API_URL}/complete-todo`;
 			const data = {
 				todoId: _id,

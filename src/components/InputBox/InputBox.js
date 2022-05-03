@@ -91,7 +91,7 @@ const InputBox = ({
 		onMouseLeave: () => setSaveBtnHover(false),
 		onClick: async () => {
 			if (customOnClick) {
-				customOnClickFunction();
+				await customOnClickFunction();
 			} else {
 				await saveNewTodo();
 			}
