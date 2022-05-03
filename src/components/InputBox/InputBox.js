@@ -9,6 +9,7 @@ const InputBox = ({
 	setNewContent,
 	deleteTodo,
 	completeTodo,
+	setShowLoader,
 }) => {
 	const [text, setText] = useState(existingText ? existingText : "");
 	const { axiosConfig, currentUser, colors, setNewTodo } =
@@ -63,6 +64,7 @@ const InputBox = ({
 	};
 	const saveNewTodo = async () => {
 		if (text.length > 0) {
+			setShowLoader(true);
 			const url = `${process.env.REACT_APP_API_URL}/save-new-todo`;
 			const data = {
 				content: text,
@@ -74,6 +76,7 @@ const InputBox = ({
 				alert("Error! New Todo was not saved!");
 			}
 			setNewTodo(false);
+			setShowLoader(false);
 		} else {
 			alert("No Text Given!");
 		}

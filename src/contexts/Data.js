@@ -33,6 +33,7 @@ const Data = () => {
 	const axiosConfig = {
 		headers: { apikey: process.env.REACT_APP_APIKEY },
 	};
+
 	return {
 		// colors
 		colors,

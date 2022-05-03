@@ -2,9 +2,10 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import Context from "../../contexts/Context";
 import InputBox from "../InputBox/InputBox";
-
+import Loader from "./../../assets/loading.svg";
 const TodoItem = ({ content, date, _id, completed }) => {
 	const { colors, axiosConfig } = useContext(Context);
+	const [showLoader, setShowLoader] = useState(false);
 	const newDate = new Date(date).toLocaleString();
 	const [hover, setHover] = useState(false);
 	const contentProps = {
@@ -47,6 +48,7 @@ const TodoItem = ({ content, date, _id, completed }) => {
 	const [newContent, setNewContent] = useState(content);
 	const editTodo = async () => {
 		if (newContent.length > 0) {
+			setShowLoader(true);
 			const url = `${process.env.REACT_APP_API_URL}/edit-todo`;
 			const data = {
 				content: newContent,
@@ -56,26 +58,32 @@ const TodoItem = ({ content, date, _id, completed }) => {
 			axios.post(url, data, axiosConfig);
 			setEditMode(false);
 			setHover(false);
+			setShowLoader(false);
 		} else {
 			alert("Todo Note is Empty!");
 		}
 	};
 	const deleteTodo = async () => {
+		setShowLoader(true);
 		const url = `${process.env.REACT_APP_API_URL}/delete-todo`;
 		const data = {
 			todoId: _id,
 		};
-		axios.post(url, data, axiosConfig);
+		await axios.post(url, data, axiosConfig);
+		setShowLoader(false);
 	};
 	const completeTodo = async () => {
 		if (completed) {
 			alert("This Note is already Archived");
 		} else {
+			setShowLoader(true);
+
 			const url = `${process.env.REACT_APP_API_URL}/complete-todo`;
 			const data = {
 				todoId: _id,
 			};
-			axios.post(url, data, axiosConfig);
+			await axios.post(url, data, axiosConfig);
+			setShowLoader(false);
 		}
 	};
 	const inputBoxProps = {
@@ -98,6 +106,9 @@ const TodoItem = ({ content, date, _id, completed }) => {
 
 			<h5 {...dateProps}>{newDate}</h5>
 			<br />
+			<div style={{ textAlign: "center" }}>
+				{showLoader && <img src={Loader} alt="loading" width={100} />}
+			</div>
 		</div>
 	);
 };
