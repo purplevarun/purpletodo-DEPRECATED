@@ -17,6 +17,9 @@ const TodoItem = ({ content, date, _id, completed }) => {
 			transition: "2s",
 			whiteSpace: "pre-wrap",
 		},
+		dangerouslySetInnerHTML: {
+			__html: content,
+		},
 	};
 	const dateProps = {
 		style: {
@@ -100,7 +103,7 @@ const TodoItem = ({ content, date, _id, completed }) => {
 			{editMode ? (
 				<InputBox {...inputBoxProps} />
 			) : (
-				<h2 {...contentProps}>{content}</h2>
+				<h2 {...contentProps}></h2>
 			)}
 
 			<h5 {...dateProps}>{newDate}</h5>
