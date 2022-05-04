@@ -12,8 +12,14 @@ const InputBox = ({
 	setShowLoader,
 }) => {
 	const [text, setText] = useState(existingText ? existingText : "");
-	const { axiosConfig, currentUser, colors, setNewTodo } =
-		useContext(Context);
+	const {
+		axiosConfig,
+		currentUser,
+		colors,
+		setNewTodo,
+		renderTodos,
+		setRenderTodos,
+	} = useContext(Context);
 
 	const handleChange = (e) => {
 		setText(e.target.value);
@@ -80,6 +86,7 @@ const InputBox = ({
 		} else {
 			alert("No Text Given!");
 		}
+		setRenderTodos(!renderTodos);
 	};
 	const saveBtn = {
 		style: {

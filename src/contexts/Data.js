@@ -34,6 +34,8 @@ const Data = () => {
 		headers: { apikey: process.env.REACT_APP_APIKEY },
 	};
 
+	const [renderTodos, setRenderTodos] = useState(false);
+	console.log(renderTodos);
 	return {
 		// colors
 		colors,
@@ -50,6 +52,9 @@ const Data = () => {
 		setNewTodo,
 		//
 		axiosConfig,
+		//
+		renderTodos,
+		setRenderTodos,
 	};
 };
 

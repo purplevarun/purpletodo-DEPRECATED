@@ -4,7 +4,7 @@ import Context from "../../contexts/Context";
 import TodoData from "./TodoData";
 import loading from "./../../assets/loading.svg";
 const TodoList = ({ onlyArchived }) => {
-	const { axiosConfig, currentUser } = useContext(Context);
+	const { axiosConfig, currentUser, renderTodos } = useContext(Context);
 	const [todos, setTodos] = useState(null);
 	const getTodos = async () => {
 		const url = `${process.env.REACT_APP_API_URL}/get-todos/${currentUser.email}`;
@@ -19,7 +19,7 @@ const TodoList = ({ onlyArchived }) => {
 	const todoProps = { todos, onlyArchived };
 	useEffect(() => {
 		getTodos();
-	});
+	}, [renderTodos]);
 	return (
 		<div
 			style={{

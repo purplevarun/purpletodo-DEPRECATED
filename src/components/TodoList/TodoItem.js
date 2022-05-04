@@ -3,8 +3,11 @@ import React, { useContext, useState } from "react";
 import Context from "../../contexts/Context";
 import InputBox from "../InputBox/InputBox";
 import Loader from "./../../assets/loading.svg";
+import ReactMarkdown from "react-markdown";
+
 const TodoItem = ({ content, date, _id, completed }) => {
-	const { colors, axiosConfig } = useContext(Context);
+	const { colors, axiosConfig, setRenderTodos, renderTodos } =
+		useContext(Context);
 	const [showLoader, setShowLoader] = useState(false);
 	const newDate = new Date(date).toLocaleString();
 	const [hover, setHover] = useState(false);
@@ -17,9 +20,7 @@ const TodoItem = ({ content, date, _id, completed }) => {
 			color: hover ? colors.gold : colors.pink,
 			transition: "2s",
 			whiteSpace: "pre-wrap",
-		},
-		dangerouslySetInnerHTML: {
-			__html: content,
+			fontSize: "20px",
 		},
 	};
 	const dateProps = {
@@ -66,6 +67,7 @@ const TodoItem = ({ content, date, _id, completed }) => {
 		} else {
 			alert("Todo Note is Empty!");
 		}
+		setRenderTodos(!renderTodos);
 	};
 	const deleteTodo = async () => {
 		setShowLoader(true);
@@ -75,6 +77,7 @@ const TodoItem = ({ content, date, _id, completed }) => {
 		};
 		await axios.post(url, data, axiosConfig);
 		setShowLoader(false);
+		setRenderTodos(!renderTodos);
 	};
 	const completeTodo = async () => {
 		if (completed) {
@@ -88,6 +91,7 @@ const TodoItem = ({ content, date, _id, completed }) => {
 			await axios.post(url, data, axiosConfig);
 			setShowLoader(false);
 		}
+		setRenderTodos(!renderTodos);
 	};
 	const inputBoxProps = {
 		existingText: content,
@@ -104,7 +108,9 @@ const TodoItem = ({ content, date, _id, completed }) => {
 			{editMode ? (
 				<InputBox {...inputBoxProps} />
 			) : (
-				<h2 {...contentProps}></h2>
+				<span {...contentProps}>
+					<ReactMarkdown>{content}</ReactMarkdown>
+				</span>
 			)}
 
 			<h5 {...dateProps}>{newDate}</h5>
