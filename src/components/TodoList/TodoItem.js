@@ -20,7 +20,7 @@ const TodoItem = ({ content, date, _id, completed }) => {
 			color: hover ? colors.gold : colors.pink,
 			transition: "2s",
 			whiteSpace: "pre-wrap",
-			fontSize: "20px",
+			fontSize: "15px",
 		},
 	};
 	const dateProps = {
@@ -45,7 +45,7 @@ const TodoItem = ({ content, date, _id, completed }) => {
 			transition: "1s",
 			paddingTop: "20px",
 			cursor: "pointer",
-			paddingLeft: "20px",
+			paddingLeft: "10px",
 		},
 		onMouseOver: () => setHover(true),
 		onMouseLeave: () => setHover(false),
