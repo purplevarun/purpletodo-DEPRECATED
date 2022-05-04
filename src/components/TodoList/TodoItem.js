@@ -4,7 +4,7 @@ import Context from "../../contexts/Context";
 import InputBox from "../InputBox/InputBox";
 import Loader from "./../../assets/loading.svg";
 import ReactMarkdown from "react-markdown";
-
+import { FaEdit } from "react-icons/fa";
 const TodoItem = ({ content, date, _id, completed }) => {
 	const { colors, axiosConfig, setRenderTodos, renderTodos } =
 		useContext(Context);
@@ -45,10 +45,10 @@ const TodoItem = ({ content, date, _id, completed }) => {
 			transition: "1s",
 			paddingTop: "20px",
 			cursor: "pointer",
+			paddingLeft: "20px",
 		},
 		onMouseOver: () => setHover(true),
 		onMouseLeave: () => setHover(false),
-		onClick: handleClick,
 	};
 	const [newContent, setNewContent] = useState(content);
 	const editTodo = async () => {
@@ -103,6 +103,17 @@ const TodoItem = ({ content, date, _id, completed }) => {
 		deleteTodo,
 		completeTodo,
 	};
+	const [editBtnHover, setEditBtnHover] = useState(false);
+	const editBtn = {
+		size: editBtnHover ? 35 : 30,
+		onClick: handleClick,
+		onMouseOver: () => setEditBtnHover(true),
+		onMouseLeave: () => setEditBtnHover(false),
+		style: {
+			transition: "0.5s",
+			color: editBtnHover ? colors.green : colors.fg,
+		},
+	};
 	return (
 		<div {...wrapper}>
 			{editMode ? (
@@ -112,8 +123,18 @@ const TodoItem = ({ content, date, _id, completed }) => {
 					<ReactMarkdown>{content}</ReactMarkdown>
 				</span>
 			)}
-
-			<h5 {...dateProps}>{newDate}</h5>
+			<div
+				style={{
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "space-between",
+					marginLeft: "20px",
+					marginTop: "20px",
+				}}
+			>
+				<FaEdit {...editBtn} />
+				<h5 {...dateProps}>{newDate}</h5>
+			</div>
 			<br />
 			<div style={{ textAlign: "center" }}>
 				{showLoader && <img src={Loader} alt="loading" width={100} />}

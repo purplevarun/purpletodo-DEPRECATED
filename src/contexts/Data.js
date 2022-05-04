@@ -35,7 +35,6 @@ const Data = () => {
 	};
 
 	const [renderTodos, setRenderTodos] = useState(false);
-	console.log(renderTodos);
 	return {
 		// colors
 		colors,
